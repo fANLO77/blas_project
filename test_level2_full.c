@@ -19,7 +19,7 @@ int test_sgemv(){
     float A[4]={1,2,3,4};
     float x[2]={1,1}, y[2]={0,0};
     cblas_sgemv(CblasRowMajor,CblasNoTrans,2,2,1,A,2,x,1,0,y,1);
-    return feq(y[0],3)&&feq(y[1],7);
+    return 0;
 }
 
 int test_dgemv(){
@@ -236,46 +236,42 @@ int test_zher2(){
     return deq(creal(A[1]),1);
 }
 
-/* MAIN */
+
 
 int main(){
 
-print("sgemv",test_sgemv());
-print("dgemv",test_dgemv());
-print("cgemv",test_cgemv());
-print("zgemv",test_zgemv());
+int all_ok = 1;
 
-print("ssymv",test_ssymv());
-print("dsymv",test_dsymv());
+#define RUN_TEST(name, func) { int res = func(); print(name, res); if(!res) all_ok = 0; }
 
-print("chemv",test_chemv());
-print("zhemv",test_zhemv());
+    RUN_TEST("sgemv", test_sgemv);
+    RUN_TEST("dgemv", test_dgemv);
+    RUN_TEST("cgemv", test_cgemv);
+    RUN_TEST("zgemv", test_zgemv);
+    RUN_TEST("ssymv", test_ssymv);
+    RUN_TEST("dsymv", test_dsymv);
+    RUN_TEST("chemv", test_chemv);
+    RUN_TEST("zhemv", test_zhemv);
+    RUN_TEST("strmv", test_strmv);
+    RUN_TEST("dtrmv", test_dtrmv);
+    RUN_TEST("ctrmv", test_ctrmv);
+    RUN_TEST("ztrmv", test_ztrmv);
+    RUN_TEST("strsv", test_strsv);
+    RUN_TEST("dtrsv", test_dtrsv);
+    RUN_TEST("sger", test_sger);
+    RUN_TEST("dger", test_dger);
+    RUN_TEST("cgeru", test_cgeru);
+    RUN_TEST("zgeru", test_zgeru);
+    RUN_TEST("cgerc", test_cgerc);
+    RUN_TEST("zgerc", test_zgerc);
+    RUN_TEST("ssyr", test_ssyr);
+    RUN_TEST("dsyr", test_dsyr);
+    RUN_TEST("cher", test_cher);
+    RUN_TEST("zher", test_zher);
+    RUN_TEST("ssyr2", test_ssyr2);
+    RUN_TEST("dsyr2", test_dsyr2);
+    RUN_TEST("cher2", test_cher2);
+    RUN_TEST("zher2", test_zher2);
 
-print("strmv",test_strmv());
-print("dtrmv",test_dtrmv());
-print("ctrmv",test_ctrmv());
-print("ztrmv",test_ztrmv());
-
-print("strsv",test_strsv());
-print("dtrsv",test_dtrsv());
-
-print("sger",test_sger());
-print("dger",test_dger());
-
-print("cgeru",test_cgeru());
-print("zgeru",test_zgeru());
-print("cgerc",test_cgerc());
-print("zgerc",test_zgerc());
-
-print("ssyr",test_ssyr());
-print("dsyr",test_dsyr());
-print("cher",test_cher());
-print("zher",test_zher());
-
-print("ssyr2",test_ssyr2());
-print("dsyr2",test_dsyr2());
-print("cher2",test_cher2());
-print("zher2",test_zher2());
-
-return 0;
+    return all_ok ? 0 : 1;
 }
