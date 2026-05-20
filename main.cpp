@@ -24,7 +24,7 @@ bool interface_test(int N, int K, T alpha, const T* A, const T* B, T beta, T* C)
         my_gemmtr_lower(N, K, alpha, A, B, beta, C);
         return true;
     } catch (...) {
-        cerr << "Функция упала при выполнении" << endl;
+        cerr << "Функция упала при выполнении или не упала )))))" << endl;
         return false;
     }
 }
